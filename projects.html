@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filterable Projects Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .filter-menu {
+            text-align: center;
+            margin: 20px 0;
+            background-color: transparent;
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .filter-menu a {
+            color: #DD4377;
+            font-size: 18px;
+            margin: 0 15px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .filter-menu a:hover {
+            background-color: #DD4377;
+            color: #fff;
+        }
+
+        .filter-menu a.active {
+            background-color: #DD4377;
+            color: #fff;
+        }
+
+        .projects-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .scrollable-area {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .project {
+            display: none; /* All projects hidden by default */
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .project h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .project p {
+            margin: 5px 0 0;
+            color: #555;
+        }
+
+        .visible {
+            display: block; /* Show visible projects */
+        }
+    </style>
+</head>
+<body>
+    <!-- Filter Menu -->
+    <div class="filter-menu">
+        <a href="#" class="active" onclick="filterProjects(event, 'all')">All Projects</a>
+        <a href="#" onclick="filterProjects(event, 'ai')">AI Projects</a>
+        <a href="#" onclick="filterProjects(event, 'cv')">Computer Vision Projects</a>
+        <a href="#" onclick="filterProjects(event, 'ios')">iOS Projects</a>
+    </div>
+
+    <!-- Projects Container -->
+    <div class="projects-container">
+        <div class="scrollable-area">
+            <!-- Projects -->
+            <div class="project visible" data-category="ai">
+                <img src="images/gallery/Sony_2.jpg" style="width: auto; height: auto; border-radius: 5px; margin-bottom: 10px;">
+                <p>First pure Linux Laptop in the history of Sony</p>
+            </div>
+            <div class="project visible" data-category="ai">
+                <h3>AI Project 2</h3>
+                <p>Details about AI Project 2.</p>
+            </div>
+            <div class="project visible" data-category="cv">
+                <h3>Computer Vision Project 1</h3>
+                <p>Details about CV Project 1.</p>
+            </div>
+            <div class="project visible" data-category="cv">
+                <h3>Computer Vision Project 2</h3>
+                <p>Details about CV Project 2.</p>
+            </div>
+            <div class="project visible" data-category="ios">
+                <h3>iOS Project 1</h3>
+                <p>Details about iOS Project 1.</p>
+            </div>
+            <div class="project visible" data-category="ios">
+                <h3>iOS Project 2</h3>
+                <p>Details about iOS Project 2.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterProjects(event, category) {
+            // Prevent the default link behavior
+            event.preventDefault();
+
+            // Remove the active class from all menu links
+            document.querySelectorAll('.filter-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add the active class to the clicked link
+            event.target.classList.add('active');
+
+            // Get all project elements
+            const projects = document.querySelectorAll('.project');
+
+            // Loop through and toggle visibility
+            projects.forEach(project => {
+                if (category === 'all' || project.getAttribute('data-category') === category) {
+                    project.classList.add('visible'); // Show project
+                } else {
+                    project.classList.remove('visible'); // Hide project
+                }
+            });
+        }
+
+        // Initialize: Set "All Projects" as default
+        document.addEventListener('DOMContentLoaded', () => {
+            const allProjectsLink = document.querySelector('.filter-menu a[href="#"]');
+            allProjectsLink.click();
+        });
+    </script>
+</body>
+</html>
